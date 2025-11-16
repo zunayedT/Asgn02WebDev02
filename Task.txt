@@ -1,0 +1,239 @@
+✅ Task List — Person A vs Person B
+👤 PERSON A — Front-End Structure + Views + Data Initialization
+HTML & Layout
+
+ Create index.html
+
+ Build header (Home, Browse, Cart, About Us)
+
+ Build footer
+
+ Create view containers:
+
+ homeView
+
+ browseView
+
+ singleProductView
+
+ cartView
+
+ aboutDialog (dialog/popup)
+
+Styling
+
+ Choose and link CSS library (Tailwind recommended)
+
+ Apply basic layout styling
+
+ Add spacing, typography, page sections
+
+ Style product cards (shared with Person B)
+
+ Style shopping cart items (shared with Person B)
+
+Data Fetch & Initialization
+
+ Write loadProducts() function
+
+ Check localStorage for existing data
+
+ If not found → fetch from API
+
+ Save fetched data to localStorage
+
+ Call initSite() after data load
+
+Home View
+
+ Add hero section (banner/intro)
+
+ Add "Browse Products" button
+
+ Add basic explanatory content
+
+ Connect button to Browse view
+
+Single Product View
+
+ Create layout for:
+
+image
+
+title
+
+price
+
+description
+
+rating
+
+category
+
+"Add to Cart" button
+
+ Implement showProduct(id) function
+
+ Fill data dynamically
+
+About Us Popup
+
+ Implement <dialog>
+
+ Add:
+
+brief assignment description
+
+technologies used
+
+team member names
+
+GitHub link
+
+ Hook up “About Us” header button → open dialog
+
+Final Deployment Work
+
+ Set up GitHub repo
+
+ Organize folder structure
+
+ Push all HTML/CSS work
+
+ Confirm GitHub Pages loads all views correctly
+
+👤 PERSON B — Routing + Browse Logic + Cart System
+Routing System
+
+ Create showView(viewId) function
+
+ Add event listeners for:
+
+Home
+
+Browse
+
+Cart
+
+About Us
+
+ Ensure all views hide/show correctly
+
+Browse View (Most Complex)
+
+ Build filter inputs:
+
+ Category dropdown
+
+ Price range slider
+
+ Search bar
+
+ Sort dropdown
+
+ Create filtering logic:
+
+ filterProducts()
+
+ category match
+
+ search match
+
+ price filtering
+
+ sorting
+
+ Render list:
+
+ product image
+
+ title
+
+ price
+
+ “View Details” button → triggers Person A’s showProduct()
+
+Shopping Cart Logic
+
+ Create cart structure in localStorage
+
+ Implement:
+
+ addToCart(id)
+
+ loadCart()
+
+ saveCart()
+
+ removeFromCart(id)
+
+ updateQuantity(id, amount)
+
+ Render cart UI:
+
+ product thumbnail
+
+ name + price
+
+ quantity inputs
+
+ delete button
+
+ subtotal + total calculations
+
+ Ensure cart persists across browser sessions
+
+Event Bindings
+
+ Bind events for all filters
+
+ Bind events for product-specific actions
+
+ Bind cart quantity and remove events
+
+Testing & UX
+
+ Test:
+
+filters
+
+sorting
+
+add-to-cart
+
+persistent cart
+
+ Fix any console errors
+
+ Add small UI improvements to browse/cart pages
+
+Final Deployment Work
+
+ Test mobile responsiveness
+
+ Optimize rendering performance (avoid repeated filters)
+
+ Validate fetch uses cached data properly
+
+ Test GitHub Pages version
+
+🎯 Summary
+Person A focuses on:
+
+HTML + structure
+
+Styling + layout
+
+Home + Single Product + About popup
+
+Data fetching + initialization
+
+Person B focuses on:
+
+Routing
+
+Browse functionality (filters + sort + display)
+
+Shopping cart logic
+
+Event handling + user interaction

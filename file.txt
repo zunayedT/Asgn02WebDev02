@@ -1,0 +1,31 @@
+comp3512-spa/
+│
+├── index.html
+├── README.md
+│
+├── /assets
+│   ├── /images
+│   │     └── (product thumbnails, logos, icons)
+│   └── /css
+│         ├── styles.css            # Only if customizing beyond Tailwind
+│         └── tailwind.css          # Optional: if customizing Tailwind
+│
+├── /js
+│   ├── app.js                      # main entry point, routing logic
+│   ├── data.js                     # fetch + localStorage caching logic
+│   ├── views/
+│   │     ├── homeView.js           # renders Home page
+│   │     ├── browseView.js         # filtering + product listing logic
+│   │     ├── productView.js        # single product details
+│   │     ├── cartView.js           # cart rendering + interaction
+│   │     └── aboutDialog.js        # About Us popup
+│   ├── components/
+│   │     ├── productCard.js        # reusable card UI
+│   │     └── cartItem.js           # reusable cart item UI
+│   └── utils/
+│         ├── dom.js                # helper functions for DOM creation
+│         ├── storage.js            # localStorage helpers
+│         └── helpers.js            # price format, sorting, etc.
+│
+└── /data
+      └── data-pretty.json          # Optional: local copy for dev only
