@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Assignment 2: Web Dev 02</title>
+
+        <link rel="stylesheet" href="./assets/css/style.css">
+    </head>
+
+
+    <body>
+        <header>
+            <nav>
+                <!-- Buttons for nav menu -->
+                <button id="navHome">Home</button>
+                <button id="navBrowse">Browse</button>
+                <button id="navCart">Cart</button>
+                <button id="navAbout">About</button>
+            </nav>
+        </header>
+
+        <body>
+            <!-- main portion start we will try our best to use template and JS to write the HTML so that we dont have to look here and there -June-->
+             <!-- Also we will use articles and hide them as its a single page application. Once user wants to see some article we make it visible by JS or CSS display View. -June-->
+            <article id="home">
+                <!-- Like this we will fill this later here using JS i have created the JS structe it will all come from there -June-->    
+            </article>
+
+            <article id="browse">
+                
+            </article>
+
+            <article id="cart">
+
+            </article>
+
+            <dialog id="about">
+                <!-- Filled dynamically or manually -->
+                <h2>About This Project</h2>
+                <p>This is the about dialog.</p>
+                <button onclick="document.getElementById('about').close()">Close</button>
+            </dialog>
+            <footer>
+                <p>© 2025 Your Name — COMP 3512 Assignment 2</p>
+            </footer>
+
+            <script type="module" src="./js/app.js"></script>
+            <!-- calling js at the very end so the page loads first then we get the data. --June -->
+            </body>
+    </body>
+</html>
