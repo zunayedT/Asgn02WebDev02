@@ -18,12 +18,13 @@ export function showView(viewId) {
 
 document.addEventListener("DOMContentLoaded", async ()=>{
     showView("home");
+    showHome();
     //by default we will show the user our home
 
     //starting to extract data only once
     products = await loadProducts();
     //only use this line if we need to check the array --June
-    //console.log(products)
+    console.log(products)
 
     //adding hanldes event for the button navigation
     document.getElementById("navHome").addEventListener("click", () => {
