@@ -16,7 +16,7 @@ export function showView(viewId) {
 
 //now we will wait for the page to load using the DOMContent loader then start modifyng our HTML -June
 
-document.addEventListener("DOMContentLoaded", async ()=>{
+document.addEventListener("DOMContentLoaded", async () => {
     showView("home");
     showHome();
     //by default we will show the user our home
