@@ -1,4 +1,4 @@
-import { showProduct } from "../app.js";
+
 
 //kept same formatting as homeView.js
 export function showProduct(product) {
@@ -76,45 +76,50 @@ export function showProduct(product) {
         </section>
     </section>
     `;
+
+        // Breadcrumb nav and text
+    let genderLbl = "All";
+    if (product.gender === "womens") {
+        genderLbl = "Women";
+    } else if (product.gender === "mens") {
+        genderLbl = "Men";
+    }
+
+    //Since nav doesn't need to work --> easy solution but can change if we have more time
+    const breadcrumb = "Home > " + genderLbl + " > " + product.category + " > " + product.name;
+
+    //Breadcrumb text field
+    const breadcrumbSpan = document.querySelector('#breadcrumbText')
+    breadcrumbSpan.textContent = breadcrumb;
+
+    //Other text fields on side view
+    const prodName = document.querySelector("#productTitle");
+    prodName.textContent = product.name;
+
+    const prodPrice = document.querySelector("#productPrice");
+    prodPrice.textContent = "$" + product.price;
+
+    const prodDesc = document.querySelector("#productDescription");
+    prodDesc.textContent = product.description;
+
+    const prodMaterial = document.querySelector("#productMaterialText");
+    prodMaterial.textContent = product.material;
+
+    //Now looping through product sizes
+    const sizeBox = document.querySelector('#productSizes');
+    //removes all existing options from list
+    sizeBox.replaceChildren();
+
+    for (let s of product.sizes) {
+        const tag = document.createElement("span");
+        tag.textContent = s;
+        //setting tag attribute to align with html format above
+        tag.setAttribute("class", "px-3 py-1 border rounded-full text-sm hover:bg-gray-100");
+        sizeBox.appendChild(tag);
+    }
+
 }
 
-// Breadcrumb nav and text
-let genderLbl = "All";
-if (product.gender === "womens") {
-    genderLbl = "Women";
-} else if (product.gender === "mens") {
-    genderLbl = "Men";
-}
 
-//Since nav doesn't need to work --> easy solution but can change if we have more time
-const breadcrumb = "Home > " + genderLbl + " > " + product.category + " > " + product.name;
 
-//Breadcrumb text field
-const breadcrumbSpan = document.querySelector('#breadcrumbText')
-breadcrumbSpan.textContent = breadcrumb;
 
-//Other text fields on side view
-const prodName = document.querySelector("#productTitle");
-prodName.textContent = product.name;
-
-const prodPrice = document.querySelector("#productPrice");
-prodPrice.textContent = "$" + product.price;
-
-const prodDesc = document.querySelector("#productDescription");
-prodDesc.textContent = product.description;
-
-const prodMaterial = document.querySelector("#productMaterialText");
-prodMaterial.textContent = product.material;
-
-//Now looping through product sizes
-const sizeBox = document.querySelector('#productSizes');
-//removes all existing options from list
-sizeBox.replaceChildren();
-
-for (let s of product.sizes) {
-    const tag = document.createElement("span");
-    tag.textContent = s;
-    //setting tag attribute to align with html format above
-    tag.setAttribute("class", "px-3 py-1 border rounded-full text-sm hover:bg-gray-100");
-    sizeBox.appendChild(tag);
-}
