@@ -1,4 +1,6 @@
-
+import { addToCart } from "./cartView.js";
+import { showView } from "../app.js";
+import { showCart } from "./cartView.js";
 
 //kept same formatting as homeView.js
 export function showProduct(product) {
@@ -116,6 +118,16 @@ export function showProduct(product) {
         //setting tag attribute to align with html format above
         tag.setAttribute("class", "px-3 py-1 border rounded-full text-sm hover:bg-gray-100");
         sizeBox.appendChild(tag);
+    }
+
+    const btnAddToCart = document.getElementById("btnAddToCart");
+    if (btnAddToCart) {
+        btnAddToCart.addEventListener("click", () => {
+            const qty = parseInt(document.getElementById("qtyInput").value);
+            addToCart(product, qty);
+            showView("cart");
+            showCart();
+        });
     }
 
 }

@@ -1,5 +1,6 @@
 import { showProduct } from "./productView.js";
 import { showView } from "../app.js";
+import { addToCart } from "./cartView.js";
 
 // STATE (filters)
 let allProducts = [];
@@ -14,6 +15,8 @@ let filters = {
     sort: "nameAZ"
 };
 
+
+//this function will load up the initial browse page
 export function showBrowse(products) {
     allProducts = products;
 
@@ -155,10 +158,7 @@ export function showBrowse(products) {
 
     applyFilters();
 }
-
-/* ----------------------------
-    APPLY FILTERS + RENDER LIST
-------------------------------*/
+//filteting starts here
 function applyFilters() {
     filtered = allProducts.filter(p => {
         if (filters.gender && p.gender !== filters.gender) return false;
@@ -243,3 +243,5 @@ function renderResults() {
         });
     });
 }
+
+
