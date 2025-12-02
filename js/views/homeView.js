@@ -78,7 +78,7 @@ export function showHome(products) {
         const card = document.createElement("div");
         card.className = "bg-white p-6 rounded-xl shadow hover:shadow-lg transition cursor-pointer";
         card.innerHTML = `
-            <h3 class="text-xl font-semibold mb-2">${p.title}</h3>
+            <h3 class="text-xl font-semibold mb-2">${p.name}</h3>
             <p class="text-gray-600 capitalize">${p.category}</p>
             <p class="text-gray-800 font-bold mt-2">$${p.price}</p>
         `;

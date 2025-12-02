@@ -17,14 +17,16 @@ export function showView(viewId) {
 //now we will wait for the page to load using the DOMContent loader then start modifyng our HTML -June
 
 document.addEventListener("DOMContentLoaded", async () => {
-    showView("home");
-    showHome();
-    //by default we will show the user our home
-
-    //starting to extract data only once
+    //starting to extract data only once also using await so the product gets loaded first.
     products = await loadProducts();
     //only use this line if we need to check the array --June
     console.log(products)
+    showView("home");
+    showHome(products);
+    //by default we will show the user our home
+
+    
+    
 
     //adding hanldes event for the button navigation
     document.getElementById("navHome").addEventListener("click", () => {
