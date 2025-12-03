@@ -5,6 +5,7 @@ import { showCart } from "./views/cartView.js";
 import { loadProducts } from "./data.js";
 //import { showProduct } from "./views/productView.js";
 
+
 //Global Product Array
 let products = [];
 
