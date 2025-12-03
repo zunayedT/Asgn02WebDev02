@@ -3,7 +3,7 @@ import { showHome } from "./views/homeView.js";
 import { showBrowse } from "./views/browseView.js";
 import { showCart } from "./views/cartView.js";
 import { loadProducts } from "./data.js";
-import { showProduct } from "./views/productView.js";
+//import { showProduct } from "./views/productView.js";
 
 //Global Product Array
 let products = [];
@@ -25,8 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     showHome(products);
     //by default we will show the user our home
 
-    
-    
+
+
 
     //adding hanldes event for the button navigation
     document.getElementById("navHome").addEventListener("click", () => {
