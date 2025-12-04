@@ -1,20 +1,20 @@
 import { addToCart } from "./cartView.js";
 import { showView } from "../app.js";
-import { loadProducts } from "./data.js";
 import { showCart } from "./cartView.js";
 import { getRelated } from "../data.js";
+import { loadProducts } from "../data.js";
 
 
 //Placing all functions at the top for cleaner organization
 
-// **** BASIC DEFAULT IMG PLACEHOLDER FOR NOW******
-const imgSrc = "images/" + product.id + ".jpg";
-
 //Creating a dynamic img list function -- NEED TO READRESS imgSrc USAGE
 function generateProdImages(product) {
+
+    // **** BASIC DEFAULT IMG PLACEHOLDER FOR NOW******
+    const imgSrc = "images/" + product.category + ".png";
+
     const mainImg = document.querySelector('#prodMainImg');
     const thumbNail = document.querySelector('#prodThumbs');
-
 
     mainImg.src = imgSrc;
     mainImg.alt = product.name;
