@@ -1,6 +1,76 @@
 import { addToCart } from "./cartView.js";
 import { showView } from "../app.js";
 import { showCart } from "./cartView.js";
+import { getRelated } from "../data.js";
+import { loadProducts } from "../data.js";
+
+
+//Placing all functions at the top for cleaner organization
+
+//Creating a dynamic img list function -- NEED TO READRESS imgSrc USAGE
+function generateProdImages(product) {
+
+    // **** BASIC DEFAULT IMG PLACEHOLDER FOR NOW******
+    const imgSrc = "images/" + product.category + ".png";
+
+    const mainImg = document.querySelector('#prodMainImg');
+    const thumbNail = document.querySelector('#prodThumbs');
+
+    mainImg.src = imgSrc;
+    mainImg.alt = product.name;
+
+    thumbNail.innerHTML = "";
+
+    //** BASIC FOR LOOP FOR NOW, SINCE imgSrc IS JUST A PLACEHOLDER**
+    for (let i = 0; i < 2; i++) {
+        const thumb = document.createElement("img");
+        thumb.src = imgSrc;
+        thumb.alt = product.name;
+        thumb.className = "w-20 h-20 object-cover rounded border cursor-pointer";
+
+        thumb.addEventListener("click", () => {
+            mainImg.src = imgSrc;
+            mainImg.alt = product.name;
+        });
+        thumbNail.appendChild(thumb);
+    }
+}
+
+//Bulidng displays for the related products section -- **AGAIN NEED TO READRESS imgSrc**
+function createRelatedProducts(product) {
+    const relatedGrid = document.querySelector('#relatedGrid');
+
+    loadProducts()
+        .then((products) => {
+            //using getRelated function from data.js
+            const rel = getRelated(products, product, 4);
+
+            relatedGrid.innerHTML = "";
+
+            for (let r of rel) {
+                const display = document = document.createElement("article");
+                display.className = "related-card border rounded-lg p-3 hover:shadow cursor-pointer flex flex-col";
+
+                const img = document.createElement("img");
+                img.src = imgSrc;
+                img.alt = r.name;
+                img.className = "w-full h-32 object-cover rounded mb-2";
+                display.appendChild(img);
+
+                const name = document.createElement("h3");
+                name.textContent = r.name;
+                name.className = "text-sm font-semibold";
+                display.appendChild(name);
+
+                const price = document.createElement("p");
+                price.textContent = "$" + r.price;
+                price.className = "text-sm text-blue-600"
+                display.appendChild(price);
+
+                relatedGrid.appendChild(display);
+            }
+        })
+}
 
 //kept same formatting as homeView.js
 export function showProduct(product) {
