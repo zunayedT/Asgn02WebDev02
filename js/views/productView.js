@@ -124,6 +124,8 @@ export function showProduct(product) {
         colorBox.appendChild(circle);
     });
 
+    //@todo we can color match with the color of the clothing item.
+
     /* ---------------------------
        ADD TO CART
     ----------------------------*/

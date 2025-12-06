@@ -19,3 +19,4 @@ export function setupAboutDialog() {
         if (!inside) dialog.close();
     });
 }
+// i dont care this
