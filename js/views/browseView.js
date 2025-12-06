@@ -1,8 +1,7 @@
 import { showProduct } from "./productView.js";
 import { showView } from "../app.js";
 import { addToCart } from "./cartView.js";
-
-// STATE (filters)
+//global variable
 let allProducts = [];
 let filtered = [];
 
@@ -15,33 +14,36 @@ let filters = {
     sort: "nameAZ"
 };
 
+// Expose these so HomeView can set gender and trigger filtering
+window.filters = filters;
+window.applyFilters = applyFilters;
 
-//this function will load up the initial browse page
-export function showBrowse(products) {
+export function showBrowse(products, genderFromHome = null) {
     allProducts = products;
+
+    if (genderFromHome) {
+        filters.gender = genderFromHome;
+    }
 
     const browse = document.getElementById("browse");
 
     browse.innerHTML = `
-        <section class="max-w-7xl mx-auto py-8 px-4">
+        <section>
+            <h1 class="page-title">Browse Products</h1>
 
-            <h1 class="text-3xl font-bold mb-6">Browse Products</h1>
+            <!-- FILTERS -->
+            <div class="filter-panel">
 
-            <!-- FILTERS BAR -->
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-
-                <!-- Gender -->
                 <div>
-                    <h2 class="font-semibold mb-2">Gender</h2>
-                    <button class="filter-btn" data-gender="womens">Women</button>
-                    <button class="filter-btn" data-gender="mens">Men</button>
-                    <button class="filter-btn" data-gender="">All</button>
+                    <h3>Gender</h3>
+                    <button class="btn filter-btn" data-gender="womens">Women</button>
+                    <button class="btn filter-btn" data-gender="mens">Men</button>
+                    <button class="btn filter-btn" data-gender="">All</button>
                 </div>
 
-                <!-- Category -->
                 <div>
-                    <h2 class="font-semibold mb-2">Category</h2>
-                    <select id="categoryFilter" class="border px-2 py-1 rounded w-full">
+                    <h3>Category</h3>
+                    <select id="categoryFilter">
                         <option value="">All</option>
                         <option value="Tops">Tops</option>
                         <option value="Bottoms">Bottoms</option>
@@ -50,10 +52,9 @@ export function showBrowse(products) {
                     </select>
                 </div>
 
-                <!-- Size -->
                 <div>
-                    <h2 class="font-semibold mb-2">Size</h2>
-                    <select id="sizeFilter" class="border px-2 py-1 rounded w-full">
+                    <h3>Size</h3>
+                    <select id="sizeFilter">
                         <option value="">All</option>
                         <option value="XS">XS</option>
                         <option value="S">S</option>
@@ -63,10 +64,9 @@ export function showBrowse(products) {
                     </select>
                 </div>
 
-                <!-- Color -->
                 <div>
-                    <h2 class="font-semibold mb-2">Color</h2>
-                    <select id="colorFilter" class="border px-2 py-1 rounded w-full">
+                    <h3>Color</h3>
+                    <select id="colorFilter">
                         <option value="">All</option>
                         <option value="Ivory">Ivory</option>
                         <option value="Black">Black</option>
@@ -74,44 +74,27 @@ export function showBrowse(products) {
                         <option value="Red">Red</option>
                     </select>
                 </div>
-
             </div>
 
-            <!-- Search + Sort -->
-            <div class="flex flex-col md:flex-row justify-between items-center mt-6 gap-4">
-
-                <input 
-                    id="searchInput"
-                    type="text"
-                    placeholder="Search products..."
-                    class="w-full md:w-1/3 border px-3 py-2 rounded"
-                />
-
-                <select id="sortSelect" class="border px-3 py-2 rounded">
+            <div class="search-sort">
+                <input id="searchInput" type="text" placeholder="Search products...">
+                <select id="sortSelect">
                     <option value="nameAZ">Name (A → Z)</option>
                     <option value="nameZA">Name (Z → A)</option>
                     <option value="priceLowHigh">Price (Low → High)</option>
                     <option value="priceHighLow">Price (High → Low)</option>
                 </select>
-
             </div>
 
-            <!-- Filters Active Chips -->
-            <div id="activeFilters" class="flex flex-wrap gap-3 mt-4"></div>
+            <div id="activeFilters" class="chip-container"></div>
+            <button id="clearFilters" class="btn">Clear All</button>
 
-            <!-- Clear All -->
-            <button id="clearFilters" class="mt-3 text-sm text-blue-600 underline">
-                Clear All Filters
-            </button>
-
-            <!-- Results -->
-            <h2 class="text-xl font-semibold mt-8">Results</h2>
-            <div id="resultsGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4"></div>
-
+            <h2 class="section-title">Results</h2>
+            <div id="resultsGrid" class="grid-4"></div>
         </section>
     `;
 
-    // Event Listeners
+    // Event listeners for the items in that view
     document.querySelectorAll(".filter-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             filters.gender = btn.dataset.gender || null;
@@ -145,21 +128,22 @@ export function showBrowse(products) {
     });
 
     document.getElementById("clearFilters").addEventListener("click", () => {
-        filters = {
-            gender: null,
-            category: null,
-            size: null,
-            color: null,
-            search: "",
-            sort: "nameAZ"
-        };
-        showBrowse(products);
+        filters.gender = null;
+        filters.category = null;
+        filters.size = null;
+        filters.color = null;
+        filters.search = "";
+        filters.sort = "nameAZ";
+
+        showBrowse(products); // Reset page
     });
 
     applyFilters();
 }
-//filteting starts here
+
+//filterrring logic made the code a bit nicer
 function applyFilters() {
+
     filtered = allProducts.filter(p => {
         if (filters.gender && p.gender !== filters.gender) return false;
         if (filters.category && p.category !== filters.category) return false;
@@ -169,6 +153,7 @@ function applyFilters() {
         return true;
     });
 
+    // Sorting methods
     if (filters.sort === "nameAZ") filtered.sort((a,b)=> a.name.localeCompare(b.name));
     if (filters.sort === "nameZA") filtered.sort((a,b)=> b.name.localeCompare(a.name));
     if (filters.sort === "priceLowHigh") filtered.sort((a,b)=> a.price - b.price);
@@ -178,9 +163,7 @@ function applyFilters() {
     renderResults();
 }
 
-/* ----------------------------
-     FILTER CHIPS
-------------------------------*/
+//filter functions for the filter chips
 function renderFiltersChips() {
     const box = document.getElementById("activeFilters");
     box.innerHTML = "";
@@ -194,18 +177,25 @@ function renderFiltersChips() {
     ];
 
     entries.forEach(([label, value]) => {
-        if (value) {
-            const chip = document.createElement("span");
-            chip.className = "px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm";
-            chip.textContent = `${label}: ${value}`;
-            box.appendChild(chip);
-        }
+        if (!value) return;
+
+        const chip = document.createElement("div");
+        chip.className = "chip";
+        chip.innerHTML = `
+            ${label}: ${value}
+            <span class="chip-close">×</span>
+        `;
+
+        chip.querySelector(".chip-close").addEventListener("click", () => {
+            filters[label.toLowerCase()] = null;
+            applyFilters();
+        });
+
+        box.appendChild(chip);
     });
 }
 
-/* ----------------------------
-     RESULTS GRID
-------------------------------*/
+//showing the result in the grid
 function renderResults() {
     const grid = document.getElementById("resultsGrid");
     grid.innerHTML = "";
@@ -217,31 +207,28 @@ function renderResults() {
 
     filtered.forEach(p => {
         const card = document.createElement("div");
-        card.className = "bg-white p-4 rounded-xl shadow hover:shadow-lg transition cursor-pointer";
-
-        const btnId = `view-${p.id}`;
+        card.className = "card";
 
         card.innerHTML = `
-            <div class="h-40 bg-gray-100 rounded flex items-center justify-center mb-3">
-                <span class="text-gray-400 text-xs">Image Placeholder</span>
-            </div>
-            <h3 class="font-semibold text-lg">${p.name}</h3>
-            <p class="text-gray-600">${p.category}</p>
-            <p class="font-bold mt-1">$${p.price}</p>
-
-            <button id="${btnId}" class="mt-3 text-sm text-blue-600 underline">
-                View
-            </button>
+            <div class="img-placeholder"></div>
+            <h3>${p.name}</h3>
+            <p>${p.category}</p>
+            <p><strong>$${p.price}</strong></p>
+            <button class="btn view-btn">View</button>
+            <button class="btn add-btn">Add to Cart</button>
         `;
 
-        grid.appendChild(card);
-
-        document.getElementById(btnId).addEventListener("click", () => {
-            console.log("View button clicked for:", p.name);
+        // view product
+        card.querySelector(".view-btn").addEventListener("click", () => {
             showView("singleproduct");
             showProduct(p);
         });
+
+        // add to cart
+        card.querySelector(".add-btn").addEventListener("click", () => {
+            addToCart(p, 1);
+        });
+
+        grid.appendChild(card);
     });
 }
-
-

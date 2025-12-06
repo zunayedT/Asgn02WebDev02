@@ -1,6 +1,6 @@
-// --------------------------
+// ------------------------
 // LOCAL STORAGE CART HELPERS
-// --------------------------
+// ------------------------
 
 function getCart() {
     return JSON.parse(localStorage.getItem("cart") || "[]");
@@ -10,11 +10,8 @@ function saveCart(cart) {
     localStorage.setItem("cart", JSON.stringify(cart));
 }
 
-// Add product (Option A: only qty + product info)
 export function addToCart(product, qty) {
-    console.log("addToCart called with:", product, qty);
     let cart = getCart();
-
     const existing = cart.find(item => item.id === product.id);
 
     if (existing) {
@@ -29,138 +26,190 @@ export function addToCart(product, qty) {
     }
 
     saveCart(cart);
-    console.log("Cart saved:", cart);
 }
 
-// Remove item
-function removeFromCart(id) {
+// ------------------------
+// SHIPPING RULES
+// ------------------------
+
+const SHIPPING_RATES = {
+    canada: {
+        standard: 10,
+        express: 20,
+        priority: 35
+    },
+    usa: {
+        standard: 25,
+        express: 40,
+        priority: 55
+    }
+};
+
+// ------------------------
+// MAIN CART VIEW
+// ------------------------
+
+export function showCart() {
+    const cart = getCart();
+    const container = document.getElementById("cart");
+
+    // Compute subtotal
+    let subtotal = 0;
+    cart.forEach(item => subtotal += item.price * item.qty);
+
+    // Default selection
+    let country = "canada";
+    let shippingMethod = "standard";
+
+    // Calculate shipping
+    function calculateShipping() {
+        if (country === "canada" && subtotal > 500) {
+            return 0; // free shipping rule
+        }
+        return SHIPPING_RATES[country][shippingMethod];
+    }
+
+    function calculateTotals() {
+        const shipping = calculateShipping();
+        const tax = subtotal * 0.05;
+        const total = subtotal + tax + shipping;
+
+        document.getElementById("subtotalVal").textContent = `$${subtotal.toFixed(2)}`;
+        document.getElementById("taxVal").textContent = `$${tax.toFixed(2)}`;
+        document.getElementById("shippingVal").textContent = `$${shipping.toFixed(2)}`;
+        document.getElementById("totalVal").textContent = `$${total.toFixed(2)}`;
+    }
+
+    container.innerHTML = `
+        <section class="cart-page">
+
+            <h1 class="page-title">Shopping Cart</h1>
+
+            ${cart.length === 0 ? `
+                <p>Your cart is empty.</p>
+            ` : `
+                <table class="cart-table">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="cartRows"></tbody>
+                </table>
+
+                <!-- SHIPPING AREA -->
+                <div class="shipping-box">
+
+                    <h2>Shipping Details</h2>
+
+                    <label>Ship To:</label>
+                    <select id="countrySelect">
+                        <option value="canada">Canada</option>
+                        <option value="usa">USA</option>
+                    </select>
+
+                    <label>Shipping Method:</label>
+                    <select id="methodSelect">
+                        <option value="standard">Standard</option>
+                        <option value="express">Express</option>
+                        <option value="priority">Priority</option>
+                    </select>
+
+                    <div class="summary-box">
+                        <p><span>Subtotal:</span> <span id="subtotalVal">$0.00</span></p>
+                        <p><span>Tax (5%):</span> <span id="taxVal">$0.00</span></p>
+                        <p><span>Shipping:</span> <span id="shippingVal">$0.00</span></p>
+
+                        <hr>
+
+                        <p class="total-line"><span>Total:</span> <span id="totalVal">$0.00</span></p>
+                    </div>
+                </div>
+            `}
+        </section>
+    `;
+
+    // If cart empty, stop processing
+    if (cart.length === 0) return;
+
+    // Fill cart rows
+    const cartRows = document.getElementById("cartRows");
+
+    cart.forEach(item => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${item.name}</td>
+            <td>$${item.price.toFixed(2)}</td>
+
+            <td>
+                <input type="number" 
+                       class="qty-input"
+                       min="1"
+                       value="${item.qty}"
+                       id="qty-${item.id}">
+            </td>
+
+            <td>$${(item.price * item.qty).toFixed(2)}</td>
+
+            <td>
+                <button class="remove-btn" id="rm-${item.id}">X</button>
+            </td>
+        `;
+
+        cartRows.appendChild(row);
+
+        // Remove button
+        document.getElementById(`rm-${item.id}`).addEventListener("click", () => {
+            removeItem(item.id);
+        });
+
+        // Update quantity
+        document.getElementById(`qty-${item.id}`).addEventListener("change", e => {
+            const newQty = parseInt(e.target.value);
+            updateQty(item.id, newQty);
+        });
+    });
+
+    // Event listeners for shipping options
+    document.getElementById("countrySelect").addEventListener("change", e => {
+        country = e.target.value;
+        calculateTotals();
+    });
+
+    document.getElementById("methodSelect").addEventListener("change", e => {
+        shippingMethod = e.target.value;
+        calculateTotals();
+    });
+
+    // First totals calculation
+    calculateTotals();
+}
+
+// ------------------------
+// HELPERS: remove + update
+// ------------------------
+
+function removeItem(id) {
     let cart = getCart();
     cart = cart.filter(item => item.id !== id);
     saveCart(cart);
     showCart();
 }
 
-// Update quantity
 function updateQty(id, qty) {
+    if (qty < 1) qty = 1;
+
     let cart = getCart();
     const item = cart.find(i => i.id === id);
 
     if (item) {
         item.qty = qty;
-        if (item.qty <= 0) {
-            removeFromCart(id);
-            return;
-        }
     }
-
     saveCart(cart);
     showCart();
-}
-
-// --------------------------
-// MAIN CART VIEW RENDERER
-// --------------------------
-
-export function showCart() {
-    console.log("showCart called");
-    const cart = getCart();
-    console.log("Current cart:", cart);
-    const container = document.getElementById("cart");
-
-    if (!container) {
-        console.error("Cart container not found!");
-        return;
-    }
-
-    // Compute totals
-    let subtotal = 0;
-    cart.forEach(item => subtotal += item.price * item.qty);
-
-    let tax = subtotal * 0.05;         // 5% GST (example)
-    let shipping = subtotal > 200 ? 0 : 15;  // Free shipping over $200
-    let total = subtotal + tax + shipping;
-
-    container.innerHTML = `
-        <section class="max-w-4xl mx-auto py-10 px-4">
-
-            <h1 class="text-3xl font-bold mb-6">Shopping Cart</h1>
-
-            ${cart.length === 0 ? `
-                <p>Your cart is empty.</p>
-            ` : `
-                <table class="w-full text-left border-collapse">
-                    <thead class="border-b">
-                        <tr>
-                            <th class="py-2">Product</th>
-                            <th class="py-2">Price</th>
-                            <th class="py-2">Quantity</th>
-                            <th class="py-2">Total</th>
-                            <th class="py-2">Remove</th>
-                        </tr>
-                    </thead>
-                    <tbody id="cartRows"></tbody>
-                </table>
-
-                <div class="mt-10 p-4 bg-gray-100 rounded-lg max-w-md ml-auto">
-                    <p class="flex justify-between">
-                        <span>Subtotal:</span> 
-                        <span>$${subtotal.toFixed(2)}</span>
-                    </p>
-                    <p class="flex justify-between">
-                        <span>Tax (5%):</span> 
-                        <span>$${tax.toFixed(2)}</span>
-                    </p>
-                    <p class="flex justify-between">
-                        <span>Shipping:</span> 
-                        <span>$${shipping.toFixed(2)}</span>
-                    </p>
-
-                    <hr class="my-2">
-
-                    <p class="flex justify-between font-bold text-lg">
-                        <span>Total:</span>
-                        <span>$${total.toFixed(2)}</span>
-                    </p>
-                </div>
-            `}
-        </section>
-    `;
-
-    // If cart is empty, don't render rows
-    if (cart.length === 0) return;
-
-    const cartRows = document.getElementById("cartRows");
-
-    cart.forEach(item => {
-        const row = document.createElement("tr");
-        row.className = "border-b";
-
-        row.innerHTML = `
-            <td class="py-3">${item.name}</td>
-            <td class="py-3">$${item.price.toFixed(2)}</td>
-            <td class="py-3">
-                <input type="number" 
-                       min="1" 
-                       value="${item.qty}" 
-                       id="qty-${item.id}"
-                       class="border rounded w-16 px-2 py-1">
-            </td>
-            <td class="py-3">$${(item.price * item.qty).toFixed(2)}</td>
-            <td class="py-3">
-                <button id="rm-${item.id}" class="text-red-600">X</button>
-            </td>
-        `;
-
-        cartRows.appendChild(row);
-
-        // Add listeners
-        document.getElementById(`rm-${item.id}`).addEventListener("click", () => {
-            removeFromCart(item.id);
-        });
-
-        document.getElementById(`qty-${item.id}`).addEventListener("change", e => {
-            const newQty = parseInt(e.target.value);
-            updateQty(item.id, newQty);
-        });
-    });
 }

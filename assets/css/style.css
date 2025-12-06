@@ -95,3 +95,152 @@ footer {
 .btn:hover {
     background: #1e4fc9;
 }
+
+
+/*product View CSS*/
+.product-container {
+    display: flex;
+    gap: 40px;
+    padding: 30px;
+}
+
+/* LEFT SIDE FIXED IMAGES */
+.product-left {
+    width: 50%;
+    position: sticky;
+    top: 20px;
+    height: fit-content;
+}
+
+.product-main-img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+/* Thumbnail row */
+.thumb-grid {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.thumb-grid img {
+    width: 80px;
+    height: 80px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.thumb-grid img:hover {
+    border-color: #888;
+}
+
+/* RIGHT SIDE DETAILS */
+.product-right {
+    width: 50%;
+    padding-right: 20px;
+}
+
+.product-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.product-price {
+    font-size: 1.5rem;
+    color: #2563eb;
+    margin-bottom: 10px;
+}
+
+.product-description {
+    margin-bottom: 20px;
+}
+
+.product-section {
+    margin-top: 20px;
+}
+
+/* Size tags */
+.size-tag {
+    padding: 8px 14px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.size-tag.selected {
+    background: #2563eb;
+    color: white;
+    border-color: #2563eb;
+}
+
+/* Color dots */
+.color-circle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid #bbb;
+}
+
+.color-circle.selected {
+    border-color: #2563eb;
+}
+
+/* Related grid */
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.related-card {
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.related-card:hover {
+    transform: translateY(-3px);
+}
+
+/*about dialog update*/
+.about-dialog {
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    border: none;
+}
+
+.about-dialog h2 {
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+.about-dialog h3 {
+    margin-top: 12px;
+    font-size: 1.2rem;
+}
+
+.about-dialog p,
+.about-dialog li {
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+#btnCloseAbout {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
