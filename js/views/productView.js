@@ -1,5 +1,5 @@
 import { addToCart } from "./cartView.js";
-import { showView } from "../app.js";
+import { showToast, showView, createProductCard } from "../app.js";
 import { loadProducts, getRelated } from "../data.js";
 
 export function showProduct(product) {
@@ -111,10 +111,15 @@ export function showProduct(product) {
     const colorBox = document.getElementById("colorBox");
     let selectedColor = null;
 
-    product.color.forEach(c => {
+    // clears any old colors
+    colorBox.innerHTML = "";
+
+    // after our meeting realized this is unneccesary since each product only has one color option
+    // but, still added so that if other color options are added it will work
+    for (let c of product.color) {
         const circle = document.createElement("div");
         circle.className = "color-circle";
-        circle.style.backgroundColor = c.name.toLowerCase();
+        circle.style.backgroundColor = c.hex;
 
         circle.addEventListener("click", () => {
             selectedColor = c.name;
@@ -122,7 +127,7 @@ export function showProduct(product) {
         });
 
         colorBox.appendChild(circle);
-    });
+    }
 
     //@todo we can color match with the color of the clothing item.
 
@@ -139,6 +144,7 @@ export function showProduct(product) {
         }
 
         addToCart(product, qty);
+        showToast ("Added to cart!");
         showView("cart");
     });
 
@@ -149,19 +155,18 @@ export function showProduct(product) {
         const related = getRelated(products, product, 4);
         const grid = document.getElementById("relatedGrid");
 
+        // replaced with card template
         related.forEach(r => {
-            const card = document.createElement("div");
-            card.className = "related-card";
-
-            card.innerHTML = `
-                <div class="related-img"></div>
-                <h4>${r.name}</h4>
-                <p>$${r.price}</p>
-            `;
-
-            card.addEventListener("click", () => {
-                showProduct(r);
-            });
+            const card = createProductCard(
+                r, () => {  
+                    showView("singleproduct");
+                    showProduct(r);
+                },
+                () => {
+                    addToCart(r, 1);
+                    showToast("Added to cart!");
+                }
+            );
 
             grid.appendChild(card);
         });

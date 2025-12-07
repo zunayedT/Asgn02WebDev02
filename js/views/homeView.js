@@ -1,6 +1,8 @@
-import { showView } from "../app.js";
+import { showView, showToast, createProductCard } from "../app.js";
 import { showBrowse } from "./browseView.js";
 import { showProduct } from "./productView.js";
+import { addToCart } from "./cartView.js";
+
 
 export function showHome(products) {
 
@@ -53,20 +55,17 @@ export function showHome(products) {
     const featured = products.slice(0, 3);
     const container = document.getElementById("featuredList");
 
+    //Updated to use createProductCard template
     featured.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        card.innerHTML = `
-            <h3>${p.name}</h3>
-            <p>${p.category}</p>
-            <p>$${p.price}</p>
-        `;
-
-        card.addEventListener("click", () => {
-            showView("singleproduct");
-            showProduct(p);  // pass the actual product object
-        });
+        const card = createProductCard( p,() => {
+                showView("singleproduct");
+                showProduct(p);
+            },
+            () => {   // onAddToCart
+                addToCart(p, 1);
+                showToast("Added to cart!");
+            }
+        );
 
         container.appendChild(card);
     });

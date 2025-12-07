@@ -1,5 +1,5 @@
 import { showProduct } from "./productView.js";
-import { showView } from "../app.js";
+import { showView, showToast, createProductCard } from "../app.js";
 import { addToCart } from "./cartView.js";
 //global variable
 let allProducts = [];
@@ -205,29 +205,17 @@ function renderResults() {
         return;
     }
 
+    // replaced with new card template
     filtered.forEach(p => {
-        const card = document.createElement("div");
-        card.className = "card";
-
-        card.innerHTML = `
-            <div class="img-placeholder"></div>
-            <h3>${p.name}</h3>
-            <p>${p.category}</p>
-            <p><strong>$${p.price}</strong></p>
-            <button class="btn view-btn">View</button>
-            <button class="btn add-btn">Add to Cart</button>
-        `;
-
-        // view product
-        card.querySelector(".view-btn").addEventListener("click", () => {
-            showView("singleproduct");
-            showProduct(p);
-        });
-
-        // add to cart
-        card.querySelector(".add-btn").addEventListener("click", () => {
-            addToCart(p, 1);
-        });
+        const card = createProductCard(p, () => {
+                showView("singleproduct");
+                showProduct(p);
+            },
+            () => {  
+                addToCart(p, 1);
+                showToast("Added to cart!");
+            }
+        );
 
         grid.appendChild(card);
     });
