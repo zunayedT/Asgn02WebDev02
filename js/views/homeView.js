@@ -22,10 +22,10 @@ export function showHome(products) {
         <section class="featured">
             <h2>Featured Categories</h2>
             <div class="grid-4">
-                <div class="card">Dresses</div>
-                <div class="card">Tops</div>
-                <div class="card">Bottoms</div>
-                <div class="card">Outerwear</div>
+                <div class="card category-btn" data-category="Dresses">Dresses</div>
+                <div class="card category-btn" data-category="Tops">Tops</div>
+                <div class="card category-btn" data-category="Bottoms">Bottoms</div>
+                <div class="card category-btn" data-category="Outerwear">Outerwear</div>
             </div>
         </section>
 
@@ -68,5 +68,24 @@ export function showHome(products) {
         );
 
         container.appendChild(card);
+    });
+
+    // features category section handlers
+        document.querySelectorAll(".category-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            const category = btn.dataset.category;
+
+            showView("browse");
+            showBrowse(products);
+
+            // Reset gender filter so categories work independently
+            window.filters.gender = null;
+
+            // Apply category filter
+            window.filters.category = category;
+
+            // Apply all filters
+            window.applyFilters();
+        });
     });
 }

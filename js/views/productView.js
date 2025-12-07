@@ -145,7 +145,6 @@ export function showProduct(product) {
 
         addToCart(product, qty);
         showToast ("Added to cart!");
-        showView("cart");
     });
 
     /* ---------------------------

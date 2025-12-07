@@ -70,15 +70,19 @@ export function createProductCard(product, onView, onAddToCart) {
 export function showToast(message) {
     const toast = document.querySelector('#toast');
 
+    if (!toast) return;
+
     toast.textContent = message;
-    toast.classList.remove('hidden');
-    toast.classList.add('visible');
+
+    toast.classList.remove("hidden");
+    toast.classList.add("visible");
 
     setTimeout(() => {
-        toast.classList.remove('visible');
-        toast.classList.add('hidden');
+        toast.classList.remove("visible");
+        toast.classList.add("hidden");
     }, 2000);
 }
+
 
 
 // HOME
@@ -103,3 +107,5 @@ document.getElementById("navCart").addEventListener("click", () => {
 document.getElementById("navAbout").addEventListener("click", () => {
     document.getElementById("about").showModal();
 });
+
+
