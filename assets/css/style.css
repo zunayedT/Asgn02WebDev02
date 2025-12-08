@@ -46,6 +46,24 @@ body {
     border-bottom: 2px solid transparent;
 }
 
+.cart-btn {
+    position: relative;
+}
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -10px;
+    background: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+    display: none; /* hidden until non-zero */
+}
+
+
 .nav-bar button:hover {
     color: #003366;                      /* deep blue highlight */
     border-bottom: 2px solid #003366;    /* Zara-style underline */
@@ -616,4 +634,98 @@ footer {
     transform: translateY(-4px);
     box-shadow: 0 6px 14px rgba(0,0,0,0.12);
 }
+
+
+/*Quick Buy CSS*/
+.quick-add-modal {
+    border: none;
+    padding: 0;
+    border-radius: 12px;
+    width: 340px;
+    max-width: 95%;
+    background: white;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.25s ease-out;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.quick-add-modal::backdrop {
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(3px);
+}
+
+/* Header */
+.qa-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 20px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.qa-header h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+/* Close button */
+.qa-close {
+    background: none;
+    border: none;
+    font-size: 22px;
+    cursor: pointer;
+    color: #444;
+}
+.qa-close:hover {
+    color: black;
+}
+
+/* Body */
+.qa-body {
+    padding: 20px;
+}
+
+.qa-field {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.qa-field label {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+.qa-field select,
+.qa-field input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.95rem;
+}
+
+/* Actions */
+.qa-actions {
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #e5e5e5;
+}
+
+.qa-add {
+    width: 130px;
+}
+
+.qa-cancel {
+    width: 100px;
+}
+
+/* Animation */
+@keyfr
+
 

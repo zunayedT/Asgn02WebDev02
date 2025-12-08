@@ -45,10 +45,6 @@ export function showBrowse(products, genderFromHome = null) {
                     <h3>Category</h3>
                     <select id="categoryFilter">
                         <option value="">All</option>
-                        <option value="Tops">Tops</option>
-                        <option value="Bottoms">Bottoms</option>
-                        <option value="Dresses">Dresses</option>
-                        <option value="Outerwear">Outerwear</option>
                     </select>
                 </div>
 
@@ -68,10 +64,6 @@ export function showBrowse(products, genderFromHome = null) {
                     <h3>Color</h3>
                     <select id="colorFilter">
                         <option value="">All</option>
-                        <option value="Ivory">Ivory</option>
-                        <option value="Black">Black</option>
-                        <option value="Blue">Blue</option>
-                        <option value="Red">Red</option>
                     </select>
                 </div>
             </div>
@@ -138,6 +130,32 @@ export function showBrowse(products, genderFromHome = null) {
         showBrowse(products); // Reset page
     });
 
+    //populating the category according to our API data
+    const categories = [...new Set(products.map(p => p.category))].sort();
+    const categorySelect = document.querySelector("#categoryFilter");
+
+    categories.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat;
+        opt.textContent = cat;
+        categorySelect.appendChild(opt);
+    });
+
+    //populating the color with the color options we found in the DATA from the API
+    const colors = [
+        ...new Set(
+            products.flatMap(p => p.color.map(c => c.name))
+        )
+    ].sort();
+
+    const colorSelect = document.querySelector("#colorFilter");
+
+    colors.forEach(col => {
+        const opt = document.createElement("option");
+        opt.value = col;
+        opt.textContent = col;
+        colorSelect.appendChild(opt);
+    });
     applyFilters();
 }
 
@@ -220,3 +238,5 @@ function renderResults() {
         grid.appendChild(card);
     });
 }
+
+

@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     // 3) Show Home page by default
     showView("home");
     showHome(products);
+    updateCartCount();  
 });
 
 //CARD TEMPLATE
@@ -59,12 +60,53 @@ export function createProductCard(product, onView, onAddToCart) {
 
     // add-to-cart button
     const addBtn = card.querySelector(".add-btn");
-    addBtn.addEventListener("click", () => {
-        onAddToCart();
+    addBtn.addEventListener("click", (event) => {
+    event.stopPropagation(); // as per our meeting stopping card click
+    openQuickAddPopup(product); // open popup
     });
 
     return card;
 }
+
+export function openQuickAddPopup(product) {
+    const dialog = document.getElementById("quickAddDialog");
+    const sizeSel = document.getElementById("qaSize");
+    const colorSel = document.getElementById("qaColor");
+    const qtyInput = document.getElementById("qaQty");
+
+    sizeSel.innerHTML = "";
+    product.sizes.forEach(size => {
+        sizeSel.innerHTML += `<option value="${size}">${size}</option>`;
+    });
+
+    colorSel.innerHTML = "";
+    product.color.forEach(c => {
+        colorSel.innerHTML += `<option value="${c.name}">${c.name}</option>`;
+    });
+
+    dialog.showModal();
+
+    document.getElementById("qaAddBtn").onclick = () => {
+        const size = sizeSel.value;
+        const color = colorSel.value;
+        const qty = parseInt(qtyInput.value);
+
+        // your existing addToCart function - June
+        addToCart({
+            ...product,
+            selectedSize: size,
+            selectedColor: color
+        }, qty);
+        updateCartCount();
+        showToast("Added to cart!");
+        dialog.close();
+    };
+
+    document.getElementById("qaCancelBtn").onclick = () => {
+        dialog.close();
+    };
+}
+
 
 //TOAST FUNCTION
 export function showToast(message) {
@@ -107,5 +149,26 @@ document.getElementById("navCart").addEventListener("click", () => {
 document.getElementById("navAbout").addEventListener("click", () => {
     document.getElementById("about").showModal();
 });
+
+
+
+
+//Cart badge update function - June
+export function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem("cart") || "[]");
+    const count = cart.reduce((sum, item) => sum + item.qty, 0);
+
+    const badge = document.getElementById("cartCount");
+
+    if (!badge) return;
+
+    if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = "inline-block";
+    } else {
+        badge.style.display = "none";
+    }
+}
+
 
 

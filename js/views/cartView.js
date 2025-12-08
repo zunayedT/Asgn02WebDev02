@@ -1,7 +1,7 @@
 // ------------------------
 // LOCAL STORAGE CART HELPERS
 // ------------------------
-
+import { updateCartCount } from "../app.js";
 function getCart() {
     return JSON.parse(localStorage.getItem("cart") || "[]");
 }
@@ -24,7 +24,7 @@ export function addToCart(product, qty) {
             qty: qty
         });
     }
-
+    updateCartCount();  
     saveCart(cart);
 }
 
@@ -35,13 +35,18 @@ export function addToCart(product, qty) {
 const SHIPPING_RATES = {
     canada: {
         standard: 10,
-        express: 20,
+        express: 25,
         priority: 35
     },
     usa: {
-        standard: 25,
-        express: 40,
-        priority: 55
+        standard: 15,
+        express: 25,
+        priority: 50
+    },
+    international: {
+        standard: 20,
+        express: 30,
+        priority: 50
     }
 };
 
@@ -110,6 +115,7 @@ export function showCart() {
                     <select id="countrySelect">
                         <option value="canada">Canada</option>
                         <option value="usa">USA</option>
+                        <option value="international">International</option>
                     </select>
 
                     <label>Shipping Method:</label>
@@ -199,6 +205,8 @@ function removeItem(id) {
     cart = cart.filter(item => item.id !== id);
     saveCart(cart);
     showCart();
+    updateCartCount();  
+
 }
 
 function updateQty(id, qty) {
@@ -212,4 +220,6 @@ function updateQty(id, qty) {
     }
     saveCart(cart);
     showCart();
+    updateCartCount();  
+
 }
