@@ -1,6 +1,4 @@
-// ------------------------
-// LOCAL STORAGE CART HELPERS
-// ------------------------
+//this file will contain all the cart funtionality. Please maintain the intrigity -June.
 import { updateCartCount } from "../app.js";
 function getCart() {
     return JSON.parse(localStorage.getItem("cart") || "[]");
@@ -25,14 +23,12 @@ export function addToCart(product, qty) {
         });
     }
     //Simple fix -- Just swapped these two functions, that's why it wasn't updating number on first click
+    // I was looking on this bugs for ages man. Thank you! -June
     saveCart(cart);
     updateCartCount();  
 }
 
-// ------------------------
 // SHIPPING RULES
-// ------------------------
-
 const SHIPPING_RATES = {
     canada: {
         standard: 10,
@@ -51,10 +47,8 @@ const SHIPPING_RATES = {
     }
 };
 
-// ------------------------
-// MAIN CART VIEW
-// ------------------------
 
+// Main cart view starts here
 export function showCart() {
     const cart = getCart();
     const container = document.getElementById("cart");
@@ -86,60 +80,59 @@ export function showCart() {
         document.getElementById("totalVal").textContent = `$${total.toFixed(2)}`;
     }
 
-    container.innerHTML = `
-        <section class="cart-page">
+container.innerHTML = `
+<section class="cart-page">
 
-            <h1 class="page-title">Shopping Cart</h1>
+    <h1 class="page-title">Shopping Cart</h1>
 
-            ${cart.length === 0 ? `
-                <p>Your cart is empty.</p>
-            ` : `
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>Product</th>
-                            <th>Price</th>
-                            <th>Qty</th>
-                            <th>Total</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody id="cartRows"></tbody>
-                </table>
+    ${cart.length === 0 ? `
+        <p>Your cart is empty.</p>
+    ` : `
+        <div class="cart-layout">
 
-                <!-- SHIPPING AREA -->
-                <div class="shipping-box">
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cartRows"></tbody>
+            </table>
 
-                    <h2>Shipping Details</h2>
+            <div class="shipping-box">
+                <h2>Shipping Details</h2>
 
-                    <label>Ship To:</label>
-                    <select id="countrySelect">
-                        <option value="canada">Canada</option>
-                        <option value="usa">USA</option>
-                        <option value="international">International</option>
-                    </select>
+                <label>Ship To:</label>
+                <select id="countrySelect">
+                    <option value="canada">Canada</option>
+                    <option value="usa">USA</option>
+                    <option value="international">International</option>
+                </select>
 
-                    <label>Shipping Method:</label>
-                    <select id="methodSelect">
-                        <option value="standard">Standard</option>
-                        <option value="express">Express</option>
-                        <option value="priority">Priority</option>
-                    </select>
+                <label>Shipping Method:</label>
+                <select id="methodSelect">
+                    <option value="standard">Standard</option>
+                    <option value="express">Express</option>
+                    <option value="priority">Priority</option>
+                </select>
 
-                    <div class="summary-box">
-                        <p><span>Subtotal:</span> <span id="subtotalVal">$0.00</span></p>
-                        <p><span>Tax (5%):</span> <span id="taxVal">$0.00</span></p>
-                        <p><span>Shipping:</span> <span id="shippingVal">$0.00</span></p>
-
-                        <hr>
-
-                        <p class="total-line"><span>Total:</span> <span id="totalVal">$0.00</span></p>
-                    </div>
+                <div class="summary-box">
+                    <p><span>Subtotal:</span> <span id="subtotalVal">$0.00</span></p>
+                    <p><span>Tax (5%):</span> <span id="taxVal">$0.00</span></p>
+                    <p><span>Shipping:</span> <span id="shippingVal">$0.00</span></p>
+                    <hr>
+                    <p class="total-line"><span>Total:</span> <span id="totalVal">$0.00</span></p>
                 </div>
-            `}
-        </section>
-    `;
+            </div>
 
+        </div>
+    `}
+</section>
+`;
     // If cart empty, stop processing
     if (cart.length === 0) return;
 
@@ -192,15 +185,10 @@ export function showCart() {
         shippingMethod = e.target.value;
         calculateTotals();
     });
-
-    // First totals calculation
     calculateTotals();
 }
 
-// ------------------------
-// HELPERS: remove + update
-// ------------------------
-
+//remove and update functions -June
 function removeItem(id) {
     let cart = getCart();
     cart = cart.filter(item => item.id !== id);

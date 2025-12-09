@@ -1,22 +1,11 @@
-// aboutDialog.js
-
 export function setupAboutDialog() {
     const dialog = document.getElementById("about");
-    const btnClose = document.getElementById("btnCloseAbout");
+    const closeBtn = document.getElementById("aboutCloseBtn");
 
-    // Close button inside dialog
-    btnClose.addEventListener("click", () => dialog.close());
+    closeBtn.addEventListener("click", () => dialog.close());
 
-    // Clicking background closes dialog
     dialog.addEventListener("click", (e) => {
-        const rect = dialog.getBoundingClientRect();
-        const inside =
-            e.clientX >= rect.left &&
-            e.clientX <= rect.right &&
-            e.clientY >= rect.top &&
-            e.clientY <= rect.bottom;
-
-        if (!inside) dialog.close();
+        const content = dialog.querySelector(".about-content");
+        if (!content.contains(e.target)) dialog.close();
     });
 }
-// i dont care this

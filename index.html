@@ -16,8 +16,8 @@
         <button id="navHome">Home</button>
         <button id="navBrowse">Browse</button>
         <button id="navCart" class="cart-btn">
-        Cart
-        <span id="cartCount" class="cart-count">0</span>
+            Cart
+            <span id="cartCount" class="cart-count">0</span>
         </button>
         <button id="navAbout">About</button>
     </nav>
@@ -29,43 +29,95 @@
     <article id="cart"></article>
     <article id="singleproduct"></article>
 </main>
-
+<!-- AI help was taken to create this about us section -->
 <dialog id="about" class="about-dialog">
-    <h2>About This Project</h2>
+        <div class="about-box">
+            <div class="about-header">
+                <h2>About This Project</h2>
+                <button class="about-close" id="aboutCloseBtn">&times;</button>
+            </div>
+            
+            <div class="about-body">
+                <h3>Overview</h3>
+                <p>
+                    <strong>T&J Heritage</strong> is a modern single-page fashion catalog application inspired by premium retail brands. 
+                    This project demonstrates dynamic client-side rendering, interactive catalog browsing, and a 
+                    fully functional shopping cart — all built without external frameworks.
+                </p>
 
-    <p><strong>Student:</strong> Zaif Zunayed</p>
-    <p><strong>Student ID:</strong> YOUR_ID_HERE</p>
-    <p><strong>Course:</strong> COMP 3512 – Web Development II</p>
-    <p><strong>Instructor:</strong> INSTRUCTOR_NAME</p>
-    <p><strong>Assignment:</strong> Assignment 2 – Product Catalog SPA</p>
+                <h3>Meet the Team</h3>
+                <div class="team-members">
+                    <div class="team-card">
+                        <strong>Zaif Zunayed</strong>
+                        <span>Developer</span>
+                    </div>
+                    <div class="team-card">
+                        <strong>Tyler Mulvey</strong>
+                        <span>Developer</span>
+                    </div>
+                </div>
 
-    <h3>Project Description</h3>
-    <p>
-        This project is a single-page application that displays a fashion catalog with
-        filtering, sorting, product details, and a functional shopping cart. All views
-        are rendered dynamically using JavaScript modules.
-    </p>
+                <h3>Course Information</h3>
+                <div class="info-box">
+                    <p><strong>Course:</strong> COMP 3512 – Web Development II</p>
+                    <p><strong>Assignment:</strong> Product Catalog SPA</p>
+                    <p><strong>Institution:</strong> Mount Royal University</p>
+                </div>
 
-    <h3>Technologies Used</h3>
-    <ul>
-        <li>JavaScript ES6 modules</li>
-        <li>HTML5 & DOM manipulation</li>
-        <li>LocalStorage API</li>
-        <li>Modular SPA architecture</li>
-    </ul>
+                <h3>Key Features</h3>
+                <ul>
+                    <li>Responsive single-page architecture with modular JavaScript</li>
+                    <li>Dynamic filtering, sorting, and live search capabilities</li>
+                    <li>Interactive product detail pages with size and color selection</li>
+                    <li>"Quick Add" modal for streamlined purchasing experience</li>
+                    <li>LocalStorage-powered shopping cart with real-time quantity updates</li>
+                    <li>Premium Zara-inspired clean UI with smooth UX patterns</li>
+                    <li>Mobile-first responsive design across all devices</li>
+                </ul>
 
-    <h3>Acknowledgements</h3>
-    <p>
-        Thanks to COMP 3512 course materials, instructor guidance, and sample datasets.
-    </p>
+                <h3>Technologies Used</h3>
+                <div class="tech-badges">
+                    <span class="badge">JavaScript ES6+</span>
+                    <span class="badge">HTML5</span>
+                    <span class="badge">CSS3</span>
+                    <span class="badge">LocalStorage API</span>
+                    <span class="badge">Responsive Design</span>
+                    <span class="badge">SPA Architecture</span>
+                </div>
 
-    <button id="btnCloseAbout">Close</button>
-</dialog>
+                <h3>Development Philosophy</h3>
+                <p>
+                    This project embodies clean architecture principles and reusable view components 
+                    while maintaining the sophisticated aesthetic of premium retail websites. Every page 
+                    transition, interaction, and visual element is meticulously designed to deliver a 
+                    modern, fast, and user-centered experience that rivals production e-commerce platforms.
+                </p>
+
+                <h3>Project Highlights</h3>
+                <ul>
+                    <li>Zero external framework dependencies - pure vanilla JavaScript</li>
+                    <li>Modular component-based architecture for maintainability</li>
+                    <li>Performance-optimized with efficient DOM manipulation</li>
+                    <li>Accessibility-focused with semantic HTML and ARIA labels</li>
+                    <li>Cross-browser compatible and tested across multiple devices</li>
+                </ul>
+
+                <h3>Acknowledgements</h3>
+                <p>
+                    Special thanks to Mount Royal University's COMP 3512 course materials, comprehensive 
+                    in-class examples, and provided datasets that guided our development process. 
+                    We're grateful for the opportunity to build a real-world application that demonstrates 
+                    modern web development best practices.
+                </p>
+            </div>
+        </div>
+    </dialog>
 
 
 <footer>
     <p>© T & J Heritage</p>
     <p>Place to start your fasion stories</p>
+    <p>Wanna know how this website works? Check: https://github.com/zunayedT/Asgn02WebDev02</p>
 </footer>
 
 <!-- Scripts -->

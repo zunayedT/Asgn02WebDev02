@@ -160,6 +160,7 @@ export function showBrowse(products, genderFromHome = null) {
 }
 
 //filterrring logic made the code a bit nicer
+//this is nice Taylor thanks man.
 function applyFilters() {
 
     filtered = allProducts.filter(p => {
@@ -234,7 +235,6 @@ function renderResults() {
                 showToast("Added to cart!");
             }
         );
-
         grid.appendChild(card);
     });
 }

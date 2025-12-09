@@ -3,11 +3,6 @@
 const DATA_URL = "https://gist.githubusercontent.com/rconnolly/d37a491b50203d66d043c26f33dbd798/raw/37b5b68c527ddbe824eaed12073d266d5455432a/clothing-compact.json";
 const STORAGE_KEY = "products-data";
 
-// -------------------------
-// PUBLIC FUNCTION
-// -------------------------
-// Usage: const products = await loadProducts();
-// Returns an ARRAY of products.
 export async function loadProducts() {
     // 1. Check localStorage first
     const cached = localStorage.getItem(STORAGE_KEY);
@@ -38,9 +33,6 @@ export async function loadProducts() {
     }
 }
 
-// -------------------------
-// OPTIONAL HELPER FUNCTIONS
-// -------------------------
 //Citation for Export: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export
 //As we are trying to keep a clean code we need to pass our functions here and there inside js module. - June
 // get product by id

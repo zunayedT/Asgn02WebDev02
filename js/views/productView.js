@@ -69,9 +69,7 @@ export function showProduct(product) {
         </section>
     `;
 
-    /* ---------------------------
-       THUMBNAILS
-    ----------------------------*/
+//thumbnails start
     const thumbGrid = document.getElementById("thumbGrid");
 
     for (let i = 0; i < 3; i++) {
@@ -86,9 +84,7 @@ export function showProduct(product) {
         thumbGrid.appendChild(thumb);
     }
 
-    /* ---------------------------
-       SIZE SELECTOR (CLICKABLE)
-    ----------------------------*/
+    //size selector Code here
     const sizeBox = document.getElementById("sizeBox");
     let selectedSize = null;
 
@@ -105,9 +101,6 @@ export function showProduct(product) {
         sizeBox.appendChild(tag);
     });
 
-    /* ---------------------------
-       COLOR SELECTOR (CLICKABLE)
-    ----------------------------*/
     const colorBox = document.getElementById("colorBox");
     let selectedColor = null;
 
@@ -131,9 +124,6 @@ export function showProduct(product) {
 
     //@todo we can color match with the color of the clothing item.
 
-    /* ---------------------------
-       ADD TO CART
-    ----------------------------*/
     document.getElementById("btnAddToCart").addEventListener("click", () => {
 
         const qty = parseInt(document.getElementById("qtyInput").value);
@@ -147,9 +137,7 @@ export function showProduct(product) {
         showToast ("Added to cart!");
     });
 
-    /* ---------------------------
-       RELATED PRODUCTS
-    ----------------------------*/
+//RELATED PRODUCTS
     loadProducts().then(products => {
         const related = getRelated(products, product, 4);
         const grid = document.getElementById("relatedGrid");
@@ -172,9 +160,7 @@ export function showProduct(product) {
     });
 }
 
-/* ---------------------------
-   HELPER: Highlight selected
-----------------------------*/
+//helper for the highlights. -June
 function highlightSelection(container, className, selectedElement) {
     [...container.children].forEach(el => el.classList.remove("selected"));
     selectedElement.classList.add("selected");

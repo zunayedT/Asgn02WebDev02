@@ -29,3 +29,7 @@ comp3512-spa/
 │
 └── /data
       └── data-pretty.json          # Optional: local copy for dev only
+
+
+This was generated before we started the assingment with the help of AI. But along the way
+we can see that a lot has changed.

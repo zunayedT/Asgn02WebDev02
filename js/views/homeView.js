@@ -35,15 +35,15 @@ export function showHome(products) {
         </section>
     `;
 
-    // Women filter
+    // filtering function for womens clothing item
     document.getElementById("btnWomen").addEventListener("click", () => {
         showView("browse");
-        showBrowse(products);   // load browse
-        window.filters.gender = "womens";  // apply filter
+        showBrowse(products);   
+        window.filters.gender = "womens"; 
         window.applyFilters();
     });
 
-    // Men filter
+    // filtering function for men
     document.getElementById("btnMen").addEventListener("click", () => {
         showView("browse");
         showBrowse(products);
@@ -51,17 +51,17 @@ export function showHome(products) {
         window.applyFilters();
     });
 
-    // Featured products
+    // Featured products lets have a crack at it
     const featured = products.slice(0, 3);
     const container = document.getElementById("featuredList");
 
-    //Updated to use createProductCard template
+    
     featured.forEach(p => {
         const card = createProductCard( p,() => {
                 showView("singleproduct");
                 showProduct(p);
             },
-            () => {   // onAddToCart
+            () => { 
                 addToCart(p, 1);
                 showToast("Added to cart!");
             }
@@ -74,17 +74,10 @@ export function showHome(products) {
         document.querySelectorAll(".category-btn").forEach(btn => {
         btn.addEventListener("click", () => {
             const category = btn.dataset.category;
-
             showView("browse");
             showBrowse(products);
-
-            // Reset gender filter so categories work independently
             window.filters.gender = null;
-
-            // Apply category filter
             window.filters.category = category;
-
-            // Apply all filters
             window.applyFilters();
         });
     });

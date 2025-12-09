@@ -111,11 +111,7 @@ export function openQuickAddPopup(product) {
 //TOAST FUNCTION
 export function showToast(message) {
     const toast = document.querySelector('#toast');
-
-    if (!toast) return;
-
     toast.textContent = message;
-
     toast.classList.remove("hidden");
     toast.classList.add("visible");
 
