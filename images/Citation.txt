@@ -1,0 +1,9 @@
+We used ChatGPT, Freepik, and Canva-generated images to support the visual representation and overall design aesthetic of our website. All graphical elements sourced or generated through these platforms were used in accordance with their respective licensing terms and usage guidelines.
+
+Image & Asset Sources:
+
+ChatGPT (AI-generated assets): https://chat.openai.com
+
+Freepik (licensed design resources): https://www.freepik.com
+
+Canva (platform-generated images & elements): https://www.canva.com
