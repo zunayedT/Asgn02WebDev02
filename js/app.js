@@ -40,12 +40,12 @@ export function createProductCard(product, onView, onAddToCart) {
 
     card.innerHTML = `
         <div class="card-image-wrapper" 
-             style="background-color: ${primaryColor}; height: 500px; display:flex; align-items:center; justify-content:center;">
+             style="background-color: ${primaryColor}; height: 450px; display:flex; align-items:center; justify-content:center;">
             <img 
                 src="images/${product.category}.png" 
                 alt="${product.name}" 
                 class="card-img"
-                style="max-width: 400px; max-height: 400px;">
+                style="max-width: 350px; max-height: 350px;">
         </div>
         <h3>${product.name}</h3>
         <p>${product.category}</p>
