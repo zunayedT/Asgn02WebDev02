@@ -24,8 +24,9 @@ export function addToCart(product, qty) {
             qty: qty
         });
     }
-    updateCartCount();  
+    //Simple fix -- Just swapped these two functions, that's why it wasn't updating number on first click
     saveCart(cart);
+    updateCartCount();  
 }
 
 // ------------------------

@@ -1,7 +1,7 @@
 import { loadProducts } from "./data.js";
 import { showHome } from "./views/homeView.js";
 import { showBrowse } from "./views/browseView.js";
-import { showCart } from "./views/cartView.js";
+import { showCart, addToCart } from "./views/cartView.js";
 import { setupAboutDialog } from "./views/aboutDialog.js";
 //global variable
 let products = [];
