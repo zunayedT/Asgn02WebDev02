@@ -63,7 +63,7 @@ export function showCart() {
 
     // Calculate shipping
     function calculateShipping() {
-        if (country === "canada" && subtotal > 500) {
+        if (subtotal > 500) {
             return 0; // free shipping rule
         }
         return SHIPPING_RATES[country][shippingMethod];
