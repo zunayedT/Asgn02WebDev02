@@ -10,6 +10,14 @@ body {
     background-color: white;
     color: black;
 }
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white; /* keeps header solid as you scroll */
+}
+
 .hero {
     text-align: center;            /* Center text */
     display: flex;
@@ -28,8 +36,6 @@ body {
     padding: 20px 40px;
     background-color: white;
     border-bottom: 1px solid #e6e6e6; /* thin clean divider */
-    position: sticky;
-    top: 0;
     justify-content: flex-end;
 }
 
@@ -578,19 +584,38 @@ body {
 
 #toast {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
 
-    background: #003366; /* deep blue brand color */
-    color: white;
+    /* align with nav area on the right */
+    right: 33px;       /* same horizontal padding as .nav-bar */
+    left: auto;        /* no centering */
 
-    padding: 12px 20px;
-    border-radius: 8px;
-    font-size: 15px;
+    /* sit just under the grey line (tweak this value if needed) */
+    top: 133px;
+
+    width: 260px;
+
+    background: #ffffff;
+    color: #003366;
+
+    padding: 14px 24px;
+    text-align: center;
+    font-size: 18px;
     letter-spacing: 0.5px;
+    font-weight: 600;
 
-    transition: opacity 0.4s ease, transform 0.4s ease;
-    
+    border: 2px solid #444;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.18);
+
+    z-index: 9999;
+    pointer-events: none;
+
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
 }
 
 /* Toast becomes visible */
