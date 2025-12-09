@@ -80,6 +80,7 @@ export function showCart() {
         document.getElementById("totalVal").textContent = `$${total.toFixed(2)}`;
     }
 
+    
 container.innerHTML = `
 <section class="cart-page">
 
